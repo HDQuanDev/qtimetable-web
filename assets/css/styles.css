@@ -1,0 +1,97 @@
+/* Tùy chỉnh màu sắc, font chữ, ... */
+body {
+    font-family: 'Inter', sans-serif;
+}
+
+/* Tùy chỉnh cho chế độ tối */
+.dark #theme-toggle .toggle-dot {
+    transform: translateX(100%);
+    background-color: #333;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+th, td {
+    text-align: left;
+    padding: 8px;
+}
+
+th {
+    background-color: #f2f2f2;
+}
+
+tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+tr:hover {
+    background-color: #f1f1f1;
+}
+
+.dark th {
+    background-color: #4a5568;
+}
+
+.dark tr:nth-child(even) {
+    background-color: #2d3748;
+}
+
+.dark tr:hover {
+    background-color: #4a5568;
+}
+
+button {
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #2b6cb0;
+}
+
+.week-info {
+    text-align: center;
+    font-size: 1.25rem;
+    font-weight: 600;
+}
+
+@media (max-width: 768px) {
+    table, thead, tbody, th, td, tr {
+        display: block;
+    }
+
+    thead tr {
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+    }
+
+    tr {
+        border: 1px solid #ccc;
+        margin-bottom: 10px;
+    }
+
+    td {
+        border: none;
+        border-bottom: 1px solid #eee;
+        position: relative;
+        padding-left: 50%;
+        text-align: right;
+    }
+
+    td:before {
+        position: absolute;
+        top: 6px;
+        left: 6px;
+        width: 45%;
+        padding-right: 10px;
+        white-space: nowrap;
+        content: attr(data-label);
+        text-align: left;
+        font-weight: bold;
+    }
+}
+
+/* Các tùy chỉnh khác nếu cần */

@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thông tin sinh viên</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap');
+
+        body {
+            font-family: 'Be Vietnam Pro', sans-serif;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+
+        /* Hover Effects */
+        .hover-up {
+            transition: transform 0.3s ease;
+        }
+
+        .hover-up:hover {
+            transform: translateY(-3px);
+        }
+
+        /* Gradient backgrounds */
+        .gradient-border {
+            position: relative;
+            background: linear-gradient(to right, #3b82f6, #2563eb);
+            padding: 1px;
+            border-radius: 0.5rem;
+        }
+
+        .gradient-border>div {
+            background: white;
+            border-radius: 0.5rem;
+        }
+
+        .dark .gradient-border>div {
+            background: #1f2937;
+        }
+
+        /* Custom animations */
+        @keyframes float {
+            0% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-5px);
+            }
+
+            100% {
+                transform: translateY(0px);
+            }
+        }
+
+        .float-animation {
+            animation: float 3s ease-in-out infinite;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-50 dark:bg-gray-900 font-sans antialiased flex flex-col min-h-screen">
+    <!-- Navbar -->
+    <nav class="sticky top-0 z-50 backdrop-blur-lg bg-white/90 dark:bg-gray-800/90 shadow-md">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center py-3">
+                <div class="flex items-center space-x-4 hover-up">
+                    <svg class="w-8 h-8 text-blue-600 float-animation" fill="none" stroke="currentColor"
+                        viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                    </svg>
+                    <span class="text-xl font-semibold text-gray-800 dark:text-white">Quản lý học tập</span>
+                </div>
+
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="tkb.html"
+                        class="text-gray-700 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400 transition-all duration-300 font-medium hover-up">
+                        Thời khóa biểu
+                    </a>
+                    <a href="lichthi.html"
+                        class="text-gray-700 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400 transition-all duration-300 font-medium hover-up">
+                        Lịch thi
+                    </a>
+                    <a href="diem.html"
+                        class="text-gray-700 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400 transition-all duration-300 font-medium hover-up">
+                        Điểm số
+                    </a>
+                    <a href="profile.html"
+                        class="text-gray-700 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400 transition-all duration-300 font-medium border-b-2 border-blue-600 hover-up">
+                        Thông tin sinh viên
+                    </a>
+                </div>
+
+                <div class="flex items-center space-x-4">
+                    <button id="theme-toggle"
+                        class="p-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 transition-all duration-300">
+                        <svg class="w-6 h-6 text-gray-600 dark:text-gray-300" fill="none" stroke="currentColor"
+                            viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                        </svg>
+                    </button>
+                    <button id="logout"
+                        class="flex items-center space-x-2 px-4 py-2 rounded-lg bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white transition-all duration-300 hover:shadow-lg">
+                        <span>Đăng xuất</span>
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div
+        class="md:hidden fixed bottom-0 left-0 right-0 z-50 bg-white dark:bg-gray-800 shadow-lg border-t border-gray-200 dark:border-gray-700">
+        <div class="grid grid-cols-4 gap-1 p-2">
+            <a href="tkb.html"
+                class="flex flex-col items-center p-2 text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-all duration-300">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                </svg>
+                <span class="text-xs mt-1">TKB</span>
+            </a>
+            <a href="lichthi.html"
+                class="flex flex-col items-center p-2 text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-all duration-300">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                </svg>
+                <span class="text-xs mt-1">Lịch thi</span>
+            </a>
+            <a href="diem.html"
+                class="flex flex-col items-center p-2 text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-all duration-300">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                </svg>
+                <span class="text-xs mt-1">Điểm số</span>
+            </a>
+            <a href="profile.html"
+                class="flex flex-col items-center p-2 text-blue-600 dark:text-blue-400 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-all duration-300">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M12 14c-3.866 0-7-3.134-7-7s3.134-7 7-7 7 3.134 7 7-3.134 7-7 7zm0 2c5.522 0 10 4.478 10 10H2c0-5.522 4.478-10 10-10z" />
+                </svg>
+                <span class="text-xs mt-1">Thông tin</span>
+            </a>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-8 mb-16 md:mb-8">
+        <div class="gradient-border">
+            <div class="p-6">
+                <h1 class="text-2xl font-bold mb-6 text-gray-800 dark:text-white flex items-center">
+                    <i class="fas fa-user-graduate mr-3 text-blue-600"></i>
+                    Thông tin sinh viên
+                </h1>
+                <div id="student-info" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Thông tin sinh viên sẽ được điền vào đây -->
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white dark:bg-gray-800 shadow-lg mt-auto">
+        <div class="container mx-auto px-4 py-12">
+            <!-- Main Footer Content -->
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-12">
+                <!-- About Section -->
+                <div class="space-y-4">
+                    <div class="flex items-center space-x-3 hover-up">
+                        <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                        </svg>
+                        <span class="text-xl font-semibold text-gray-800 dark:text-white">QTimeTable Web</span>
+                    </div>
+                    <p class="text-gray-600 dark:text-gray-400 leading-relaxed">
+                        QTimeTable là dự án mã nguồn mở được phát triển bởi sinh viên ICTU, với mục tiêu hỗ trợ cộng
+                        đồng sinh viên quản lý thời gian học tập hiệu quả khi mà nhà trường chưa có ứng dụng chính thức
+                        cho việc này.
+                        Tôi cảm thấy khó khăn khi phải theo dõi thời khóa biểu, lịch thi, điểm số trên trang web của
+                        trường, và đó là lý do tôi quyết định phát triển ứng dụng này. Tôi hy vọng rằng QTimeTable sẽ
+                        giúp ích cho bạn trong việc quản lý thời gian học tập của mình và giúp cho các bạn sinh viên
+                        ICTU có thể dễ dàng hơn trong việc theo dõi thời khóa biểu, lịch thi và điểm số của mình.
+                    </p>
+                </div>
+                <!-- Quick Links -->
+                <div class="space-y-4">
+                    <h3 class="text-lg font-semibold text-gray-800 dark:text-white">Liên kết hữu ích</h3>
+                    <ul class="space-y-3">
+                        <li class="hover-up">
+                            <a href="https://tkb.quanhd.net/"
+                                class="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-all duration-300 flex items-center">
+                                <i class="fas fa-chevron-right text-sm text-blue-600 mr-2"></i>
+                                Trang chính thức
+                            </a>
+                        </li>
+                        <li class="hover-up">
+                            <a href="https://ai.quanhd.net/"
+                                class="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-all duration-300 flex items-center">
+                                <i class="fas fa-chevron-right text-sm text-blue-600 mr-2"></i>
+                                Chat bot hỗ trợ
+                            </a>
+                        </li>
+                        <li class="hover-up">
+                            <a href="https://github.com/hdquandev/qtimetable-web"
+                                class="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-all duration-300 flex items-center">
+                                <i class="fas fa-chevron-right text-sm text-blue-600 mr-2"></i>
+                                GitHub Repository
+                            </a>
+                        </li>
+                        <li class="hover-up">
+                            <a href="https://www.facebook.com/quancp72h"
+                                class="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-all duration-300 flex items-center">
+                                <i class="fas fa-chevron-right text-sm text-blue-600 mr-2"></i>
+                                Facebook cá nhân
+                            </a>
+                        </li>
+                        <li class="hover-up">
+                            <a href="https://quanhd.net/"
+                                class="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-all duration-300 flex items-center">
+                                <i class="fas fa-chevron-right text-sm text-blue-600 mr-2"></i>
+                                Trang cá nhân
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Contact Information -->
+                <div class="space-y-4">
+                    <h3 class="text-lg font-semibold text-gray-800 dark:text-white">Thông tin liên hệ</h3>
+                    <ul class="space-y-3">
+                        <li class="flex items-center space-x-3 hover-up">
+                            <div
+                                class="w-8 h-8 bg-blue-100 dark:bg-blue-900 rounded-full flex items-center justify-center">
+                                <i class="fas fa-phone text-blue-600 dark:text-blue-400"></i>
+                            </div>
+                            <span class="text-gray-600 dark:text-gray-400">
+                               Hỗ trợ: 087 787 2003
+                            </span>
+                        </li>
+                        <li class="flex items-center space-x-3 hover-up">
+                            <div
+                                class="w-8 h-8 bg-blue-100 dark:bg-blue-900 rounded-full flex items-center justify-center">
+                                <i class="fas fa-envelope text-blue-600 dark:text-blue-400"></i>
+                            </div>
+                            <span class="text-gray-600 dark:text-gray-400">
+                                hdquandev@quanhd.net
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Team & Social -->
+                <div class="space-y-4">
+                    <h3 class="text-lg font-semibold text-gray-800 dark:text-white">Đội ngũ phát triển</h3>
+                    <div class="space-y-4">
+                        <div class="flex items-center space-x-3 hover-up">
+                            <img src="https://github.com/HDQuanDev.png" alt="Founder" width="80" height="80"
+                                class="rounded-full border-2 border-blue-600" />
+                            <div>
+                                <p class="font-medium text-gray-800 dark:text-white">Hứa Đức Quân</p>
+                                <p class="text-sm text-gray-600 dark:text-gray-400">Full Stack Developer</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Social Links -->
+                    <div class="pt-4">
+                        <p class="text-sm font-semibold text-gray-800 dark:text-white mb-3">Kết nối với chúng tôi:</p>
+                        <div class="flex space-x-4">
+                            <a href="https://www.facebook.com/quancp72h"
+                                class="w-10 h-10 bg-blue-100 dark:bg-blue-900 rounded-full flex items-center justify-center hover:bg-blue-200 dark:hover:bg-blue-800 transition-all duration-300">
+                                <i class="fab fa-facebook-f text-blue-600 dark:text-blue-400"></i>
+                            </a>
+                            <a href="#"
+                                class="w-10 h-10 bg-blue-100 dark:bg-blue-900 rounded-full flex items-center justify-center hover:bg-blue-200 dark:hover:bg-blue-800 transition-all duration-300">
+                                <i class="fab fa-twitter text-blue-600 dark:text-blue-400"></i>
+                            </a>
+                            <a href="#"
+                                class="w-10 h-10 bg-blue-100 dark:bg-blue-900 rounded-full flex items-center justify-center hover:bg-blue-200 dark:hover:bg-blue-800 transition-all duration-300">
+                                <i class="fab fa-linkedin-in text-blue-600 dark:text-blue-400"></i>
+                            </a>
+                            <a href="#"
+                                class="w-10 h-10 bg-blue-100 dark:bg-blue-900 rounded-full flex items-center justify-center hover:bg-blue-200 dark:hover:bg-blue-800 transition-all duration-300">
+                                <i class="fab fa-youtube text-blue-600 dark:text-blue-400"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bottom Footer -->
+            <div class="border-t border-gray-200 dark:border-gray-700 mt-12 pt-8">
+                <div class="flex flex-col md:flex-row justify-between items-center">
+                    <p class="text-sm text-gray-600 dark:text-gray-400 text-center md:text-left mb-4 md:mb-0">
+                        © 2025 QTimeTable. Tất cả quyền được bảo lưu.
+                        <br class="md:hidden">
+                        <span class="hidden md:inline">|</span>
+                        Thiết kế bởi <a href="https://quanhd.net" class="text-blue-600 hover:underline">QuanHD</a>
+                    </p>
+                    <div class="flex items-center space-x-4">
+                        <img src="https://placehold.co/32x32" alt="Payment 1" class="hover-up" />
+                        <img src="https://placehold.co/32x32" alt="Payment 2" class="hover-up" />
+                        <img src="https://placehold.co/32x32" alt="Payment 3" class="hover-up" />
+                        <img src="https://placehold.co/32x32" alt="Payment 4" class="hover-up" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="assets/js/scripts.js"></script>
+</body>
+
+</html>
