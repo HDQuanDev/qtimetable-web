@@ -27,25 +27,32 @@ tailwind.config = {
         }
     }
 };
-// Theme toggle
-const themeToggle = document.getElementById('theme-toggle');
-const html = document.documentElement;
+document.addEventListener('DOMContentLoaded', () => {
+    const themeToggle = document.getElementById('theme-toggle');
+    const html = document.documentElement;
 
-themeToggle.addEventListener('click', () => {
-    if (html.classList.contains('dark')) {
-        html.classList.remove('dark');
-        localStorage.setItem('theme', 'light');
-    } else {
-        html.classList.add('dark');
-        localStorage.setItem('theme', 'dark');
-    }
+    // Load theme from local storage or system preference
+    const loadTheme = () => {
+        const currentTheme = localStorage.getItem('theme');
+        if (currentTheme) {
+            html.classList.toggle('dark', currentTheme === 'dark');
+        } else {
+            // Check system preference
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            html.classList.toggle('dark', prefersDark);
+            localStorage.setItem('theme', prefersDark ? 'dark' : 'light');
+        }
+    };
+
+    // Theme toggle handler
+    themeToggle.addEventListener('click', () => {
+        const isDark = html.classList.toggle('dark');
+        localStorage.setItem('theme', isDark ? 'dark' : 'light');
+    });
+
+    // Initial theme load
+    loadTheme();
 });
-
-// Load theme from local storage
-const currentTheme = localStorage.getItem('theme');
-if (currentTheme === 'dark') {
-    html.classList.add('dark');
-}
 
 // Hàm để xử lý đăng nhập
 async function handleLogin(event) {
@@ -454,9 +461,56 @@ function displayDiemSo(diemData, diemDetailData) {
             transition-all duration-200 p-4 border border-gray-200 dark:border-gray-700
         `;
 
-        // Calculate status and color
-        const status = parseFloat(item.tkhp) >= 4 ? 'Đạt' : 'Chưa đạt';
-        const statusColor = parseFloat(item.tkhp) >= 4 ? 'green' : 'red';
+        // Split all scores into arrays
+        const ccScores = item.cc.split('\n');
+        const thiScores = item.thi.split('\n');
+        const tkhpScores = item.tkhp.split('\n');
+        const diemChuScores = item.diem_chu.split('\n');
+
+        // Get latest scores
+        const latestCC = ccScores[ccScores.length - 1];
+        const latestThi = thiScores[thiScores.length - 1];
+        const latestTKHP = tkhpScores[tkhpScores.length - 1];
+        const latestDiemChu = diemChuScores[diemChuScores.length - 1];
+
+        const status = parseFloat(latestTKHP) >= 4 ? 'Đạt' : 'Chưa đạt';
+
+        // Generate history HTML if multiple attempts exist
+        let historyHTML = '';
+        if (ccScores.length > 1) {
+            historyHTML = `
+                <div class="mt-4 pt-3 border-t border-gray-200 dark:border-gray-700">
+                    <div class="mb-2 text-sm font-medium text-gray-500 dark:text-gray-400">
+                        Lịch sử các lần học
+                    </div>
+                    ${ccScores.map((cc, index) => `
+                        <div class="mb-2 p-2 bg-gray-50 dark:bg-gray-700 rounded text-sm">
+                            <div class="font-medium text-gray-900 dark:text-gray-100 mb-1">
+                                Lần ${index + 1}:
+                            </div>
+                            <div class="grid grid-cols-2 gap-2">
+                                <div>
+                                    <span class="text-gray-500 dark:text-gray-400">CC:</span>
+                                    <span class="font-medium">${cc}</span>
+                                </div>
+                                <div>
+                                    <span class="text-gray-500 dark:text-gray-400">Thi:</span>
+                                    <span class="font-medium">${thiScores[index] || 'N/A'}</span>
+                                </div>
+                                <div>
+                                    <span class="text-gray-500 dark:text-gray-400">TKHP:</span>
+                                    <span class="font-medium">${tkhpScores[index] || 'N/A'}</span>
+                                </div>
+                                <div>
+                                    <span class="text-gray-500 dark:text-gray-400">Điểm chữ:</span>
+                                    <span class="font-medium">${diemChuScores[index] || 'N/A'}</span>
+                                </div>
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+        }
 
         card.innerHTML = `
             <div class="flex items-center justify-between mb-4">
@@ -476,19 +530,19 @@ function displayDiemSo(diemData, diemDetailData) {
             <div class="grid grid-cols-2 gap-3 text-sm mb-4">
                 <div class="flex flex-col">
                     <span class="text-gray-500 dark:text-gray-400">Chuyên cần</span>
-                    <span class="font-medium text-gray-900 dark:text-gray-100">${item.cc}</span>
+                    <span class="font-medium text-gray-900 dark:text-gray-100">${latestCC}</span>
                 </div>
                 <div class="flex flex-col">
                     <span class="text-gray-500 dark:text-gray-400">Thi</span>
-                    <span class="font-medium text-gray-900 dark:text-gray-100">${item.thi}</span>
+                    <span class="font-medium text-gray-900 dark:text-gray-100">${latestThi}</span>
                 </div>
                 <div class="flex flex-col">
                     <span class="text-gray-500 dark:text-gray-400">TKHP</span>
-                    <span class="font-medium text-gray-900 dark:text-gray-100">${item.tkhp}</span>
+                    <span class="font-medium text-gray-900 dark:text-gray-100">${latestTKHP}</span>
                 </div>
                 <div class="flex flex-col">
                     <span class="text-gray-500 dark:text-gray-400">Điểm chữ</span>
-                    <span class="font-medium text-gray-900 dark:text-gray-100">${item.diem_chu}</span>
+                    <span class="font-medium text-gray-900 dark:text-gray-100">${latestDiemChu}</span>
                 </div>
             </div>
             <div class="pt-3 border-t border-gray-200 dark:border-gray-700">
@@ -504,6 +558,7 @@ function displayDiemSo(diemData, diemDetailData) {
                     </span>
                 </div>
             </div>
+            ${historyHTML}
         `;
         diemDetailContainer.appendChild(card);
     });
@@ -610,23 +665,18 @@ function handleLogout() {
 
 // Hàm để kiểm tra trạng thái đăng nhập
 function checkLoginStatus() {
-    console.log('Checking login status...');
     const userData = JSON.parse(localStorage.getItem('userData'));
-    
+
     // Get current path and normalize it
     const currentPath = window.location.pathname.toLowerCase();
-    console.log('Current path:', currentPath);
-    
+
     // Check if on login page (handle both root and subfolder cases)
     const isLoginPage = currentPath.endsWith('login.html') || currentPath === '/';
-    console.log('Is login page:', isLoginPage);
-    
+
     if (!userData && !isLoginPage) {
-        console.log('Not logged in and not on login page - redirecting to login...');
         // Use relative path for better compatibility
         window.location.replace('./login.html');
     } else if (userData && isLoginPage) {
-        console.log('Logged in but on login page - redirecting to dashboard...');
         window.location.replace('./tkb.html');
     }
 }
@@ -866,18 +916,20 @@ const removeNotification = (notification) => {
 
 // Initialize theme based on system preference
 const initializeTheme = () => {
-    if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-        document.documentElement.classList.add('dark');
-    }
-
-    // Listen for system theme changes
-    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
-        if (e.matches) {
+    if (!localStorage.getItem('theme')) {
+        if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
             document.documentElement.classList.add('dark');
-        } else {
-            document.documentElement.classList.remove('dark');
         }
-    });
+
+        // Listen for system theme changes
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+            if (e.matches) {
+                document.documentElement.classList.add('dark');
+            } else {
+                document.documentElement.classList.remove('dark');
+            }
+        });
+    }
 };
 
 // Data update handler
@@ -968,8 +1020,9 @@ if (window.location.pathname.includes('profile.html')) {
         studentInfoContainer.innerHTML = '<p class="text-gray-700 dark:text-gray-300">Không tìm thấy thông tin sinh viên.</p>';
     }
 }
-
-document.getElementById('title').textContent = JSON.parse(localStorage.getItem('userData')).user_info.name + ' - ICTU';
+if (!window.location.pathname.includes('login.html')) {
+    document.getElementById('title').textContent = JSON.parse(localStorage.getItem('userData')).user_info.name + ' - ICTU';
+}
 // Xử lý sự kiện chuyển tuần
 let currentWeek = 1;
 const prevWeekButton = document.getElementById('prev-week');

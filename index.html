@@ -1,15 +1,386 @@
 <!DOCTYPE html>
 <html lang="vi">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trang chủ</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body class="bg-gray-100 dark:bg-gray-900">
+    <title>Lịch học ICTU - Tra cứu thời khóa biểu Đại học CNTT & TT Thái Nguyên | QTimeTable</title>
+
+    <!-- Primary Meta Tags -->
+    <meta name="title" content="Lịch học ICTU - Tra cứu thời khóa biểu Đại học CNTT & TT Thái Nguyên | QTimeTable">
+    <meta name="description"
+        content="Xem lịch học ICTU, tra cứu thời khóa biểu, lịch thi và điểm số trực tuyến cho sinh viên Đại học CNTT & TT Thái Nguyên. Cập nhật nhanh chóng, chính xác 24/7.">
+    <meta name="keywords"
+        content="lich hoc ictu, lichhoc ictu, thoi khoa bieu ictu, tkb ictu, xem lich hoc ictu, lich thi ictu, diem so ictu, qtimetable, ictu schedule, dai hoc cntt thai nguyen">
+    <meta name="author" content="Hứa Đức Quân">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://ictu.quanhd.net/">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://ictu.quanhd.net/">
+    <meta property="og:title" content="Lịch học ICTU - Tra cứu thời khóa biểu Đại học CNTT & TT Thái Nguyên">
+    <meta property="og:description"
+        content="Xem lịch học ICTU, tra cứu thời khóa biểu, lịch thi và điểm số trực tuyến cho sinh viên Đại học CNTT & TT Thái Nguyên. Cập nhật nhanh chóng, chính xác 24/7.">
+    <meta property="og:image" content="https://ictu.quanhd.net/assets/images/preview.jpg">
+    <meta property="og:site_name" content="QTimeTable - Lịch học ICTU">
+    <meta property="og:locale" content="vi_VN">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://ictu.quanhd.net/">
+    <meta name="twitter:title" content="Lịch học ICTU - Tra cứu thời khóa biểu Đại học CNTT & TT Thái Nguyên">
+    <meta name="twitter:description"
+        content="Xem lịch học ICTU, tra cứu thời khóa biểu, lịch thi và điểm số trực tuyến cho sinh viên Đại học CNTT & TT Thái Nguyên. Cập nhật nhanh chóng, chính xác 24/7.">
+    <meta name="twitter:image" content="https://ictu.quanhd.net/assets/images/preview.jpg">
+
+    <!-- Favicon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <meta name="theme-color" content="#2563EB">
+
+    <!-- Additional Meta Tags for SEO -->
+    <meta name="google-site-verification" content="your-verification-code">
+    <meta name="msvalidate.01" content="your-bing-verification-code">
+    <link rel="alternate" href="https://ictu.quanhd.net/" hreflang="vi-vn">
+
+    <!-- Preconnect to required origins -->
+    <link rel="preconnect" href="https://cdn.tailwindcss.com">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Styles -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+
+    <!-- Additional Styles -->
+    <style>
+        @keyframes float {
+            0% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+
+            100% {
+                transform: translateY(0px);
+            }
+        }
+
+        .animate-float {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #2563EB, #4F46E5);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    </style>
+
+    <!-- JSON-LD Schema Markup -->
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "WebApplication",
+            "name": "QTimeTable - Lịch học ICTU",
+            "url": "https://ictu.quanhd.net/",
+            "description": "Ứng dụng xem lịch học, lịch thi và điểm số dành cho sinh viên ICTU",
+            "applicationCategory": "EducationalApplication",
+            "operatingSystem": "All",
+            "offers": {
+                "@type": "Offer",
+                "price": "0",
+                "priceCurrency": "VND"
+            },
+            "provider": {
+                "@type": "Organization",
+                "name": "Hứa Đức Quân",
+                "url": "https://ictu.quanhd.net/"
+            },
+            "aggregateRating": {
+                "@type": "AggregateRating",
+                "ratingValue": "4.8",
+                "ratingCount": "150"
+            }
+        }
+    </script>
+
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "Organization",
+            "name": "QTimeTable",
+            "url": "https://ictu.quanhd.net/",
+            "logo": "https://ictu.quanhd.net/assets/images/logo.png",
+            "sameAs": [
+                "https://github.com/HDQuanDev/qtimetable-web"
+            ]
+        }
+    </script>
+
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [{
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Trang chủ",
+                "item": "https://ictu.quanhd.net/"
+            }]
+        }
+    </script>
+
+    <!-- Tailwind Config -->
     <script>
-        window.location.href = 'login.html';
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+</head>
+
+<body class="bg-gray-50 dark:bg-gray-900 transition-all duration-300">
+    <!-- Hero Background -->
+    <div class="fixed inset-0 -z-10 overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-gray-900 dark:to-gray-800">
+        </div>
+        <div class="absolute inset-0 opacity-30 dark:opacity-20">
+            <svg class="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
+                <!-- Add decorative patterns -->
+            </svg>
+        </div>
+    </div>
+
+    <!-- Navbar with glass effect -->
+    <nav class="fixed top-0 left-0 w-full glass-effect z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex-shrink-0">
+                    <a href="/" class="flex items-center">
+                        <span
+                            class="text-2xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">QTimeTable
+                            Web</span>
+                        <span
+                            class="ml-2 text-xs px-2 py-1 rounded-full bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-400">Beta</span>
+                    </a>
+                </div>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#features"
+                        class="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Tính
+                        năng</a>
+                    <a href="#about"
+                        class="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Giới
+                        thiệu</a>
+                    <a href="https://github.com/HDQuanDev/qtimetable-web" target="_blank"
+                        class="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                            <path
+                                d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+                        </svg>
+                    </a>
+                    <a href="login.html"
+                        class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-lg text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors">
+                        Đăng nhập
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section with enhanced animations -->
+    <section class=" pt-32 pb-20 md:pt-40 md:pb-28 relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center space-y-8">
+                <span
+                    class="inline-block px-4 py-2 rounded-full bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-400 text-sm font-medium mb-4 animate-float">
+                    Phiên bản Beta
+                </span>
+
+                <h1 class="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight">
+                    <span class="block text-gray-900 dark:text-white mb-2">
+                        Lịch học thông minh
+                    </span>
+                    <span class="gradient-text">
+                        Dành cho sinh viên ICTU
+                    </span>
+                </h1>
+
+                <p class="mt-6 text-lg md:text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed">
+                    Tra cứu lịch học, lịch thi và điểm số một cách nhanh chóng.
+                    Được thiết kế và tối ưu dành riêng cho sinh viên
+                    <span class="font-semibold">Đại học CNTT & TT Thái Nguyên</span>.
+                </p>
+
+                <div class="flex flex-col sm:flex-row gap-4 justify-center items-center mt-10">
+                    <a href="login.html"
+                        class="group relative inline-flex items-center justify-center px-8 py-3 text-lg font-medium text-white bg-gradient-to-r from-blue-600 to-indigo-600 rounded-xl overflow-hidden transition-all duration-300 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 shadow-lg">
+                        <span class="relative">
+                            Đăng nhập ngay
+                            <span
+                                class="absolute bottom-0 left-0 w-full h-0.5 bg-white transform scale-x-0 group-hover:scale-x-100 transition-transform"></span>
+                        </span>
+                    </a>
+
+                    <a href="https://github.com/HDQuanDev/qtimetable-web"
+                        class="group inline-flex items-center justify-center px-8 py-3 text-lg font-medium text-gray-700 dark:text-gray-200 bg-white dark:bg-gray-800 rounded-xl transition-all duration-300 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2 shadow-lg">
+                        Xem mã nguồn
+                        <svg class="w-5 h-5 ml-2 transform group-hover:translate-x-1 transition-transform" fill="none"
+                            stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="py-20 bg-white dark:bg-gray-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <h2 class="text-3xl font-extrabold text-gray-900 dark:text-white sm:text-4xl">
+                    Tính năng nổi bật
+                </h2>
+                <p class="mt-4 max-w-2xl mx-auto text-lg text-gray-500 dark:text-gray-400">
+                    Tất cả những gì bạn cần để theo dõi việc học tập của mình
+                </p>
+            </div>
+
+            <div class="mt-16 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+                <!-- Feature 1 -->
+                <div class="relative p-6 bg-gray-50 dark:bg-gray-700 rounded-2xl shadow-sm hover:shadow-lg transition-shadow"
+                    data-aos="fade-up">
+                    <div class="w-12 h-12 bg-blue-600 rounded-xl flex items-center justify-center">
+                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2">
+                            </path>
+                        </svg>
+                    </div>
+                    <h3 class="mt-4 text-xl font-semibold text-gray-900 dark:text-white">Lịch học theo tuần</h3>
+                    <p class="mt-2 text-gray-500 dark:text-gray-400">Xem lịch học được sắp xếp theo tuần một cách trực
+                        quan và dễ dàng</p>
+                </div>
+                <!-- Feature 2 -->
+                <div class="relative p-6 bg-gray-50 dark:bg-gray-700 rounded-2xl shadow-sm hover:shadow-lg transition-shadow"
+                    data-aos="fade-up" data-aos-delay="100">
+                    <div class="w-12 h-12 bg-indigo-600 rounded-xl flex items-center justify-center">
+                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2">
+                            </path>
+                        </svg>
+                    </div>
+                    <h3 class="mt-4 text-xl font-semibold text-gray-900 dark:text-white">Lịch thi</h3>
+                    <p class="mt-2 text-gray-500 dark:text-gray-400">Theo dõi lịch thi và được thông báo khi có cập nhật
+                        mới</p>
+                </div>
+
+                <!-- Feature 3 -->
+                <div class="relative p-6 bg-gray-50 dark:bg-gray-700 rounded-2xl shadow-sm hover:shadow-lg transition-shadow"
+                    data-aos="fade-up" data-aos-delay="200">
+                    <div class="w-12 h-12 bg-blue-600 rounded-xl flex items-center justify-center">
+                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z">
+                            </path>
+                        </svg>
+                    </div>
+                    <h3 class="mt-4 text-xl font-semibold text-gray-900 dark:text-white">Điểm số</h3>
+                    <p class="mt-2 text-gray-500 dark:text-gray-400">Xem điểm số và tính toán GPA tự động</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- New Testimonials Section -->
+    <section class="py-20 bg-gray-50 dark:bg-gray-800">
+        <!-- Add testimonials content -->
+    </section>
+
+    <!-- Footer with enhanced design -->
+    <footer class="bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800">
+        <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <p class="text-base text-gray-500 dark:text-gray-400">
+                    &copy; 2025 QTimeTable. Mã nguồn mở dành cho cộng đồng ICTU phát triển bởi <a
+                        href="https://quanhd.net"
+                        class="text-blue-600 dark:text-blue-400 hover:underline">HDQuanDev</a>.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Dark mode toggle button -->
+    <button id="darkModeToggle"
+        class="fixed bottom-4 right-4 p-3 bg-white dark:bg-gray-800 rounded-full shadow-lg hover:shadow-xl transition-shadow">
+        <svg class="w-6 h-6 text-gray-800 dark:text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+        </svg>
+    </button>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script>
+        // Define dark mode and redirection functionality
+        const darkModeToggle = document.getElementById('darkModeToggle');
+        const html = document.documentElement;
+
+        // Check if user has visited before and redirect if needed
+        if (localStorage.getItem('hasVisited')) {
+            window.location.href = 'login.html';
+        }
+
+        // Dark mode functionality
+        if (darkModeToggle) {
+            darkModeToggle.addEventListener('click', () => {
+                document.documentElement.classList.toggle('dark');
+                localStorage.setItem('darkMode', document.documentElement.classList.contains('dark'));
+            });
+        }
+
+        // Check dark mode preference
+        if (localStorage.getItem('darkMode') === 'true' ||
+            (!localStorage.getItem('darkMode') &&
+                window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        }
+
+        // Set visited flag when clicking login
+        document.querySelectorAll('a[href="login.html"]').forEach(link => {
+            link.addEventListener('click', () => {
+                localStorage.setItem('hasVisited', 'true');
+            });
+        });
+
+        // Initialize AOS
+        AOS.init({
+            duration: 800,
+            once: true
+        });
     </script>
 </body>
+
 </html>

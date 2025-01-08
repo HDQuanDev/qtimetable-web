@@ -3,65 +3,182 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Đăng nhập</title>
+    <title>Đăng nhập QTimeTable - Xem lịch học, lịch thi ICTU</title>
+    
+    <!-- SEO Tags -->
+    <meta name="description" content="Đăng nhập QTimeTable - Ứng dụng xem lịch học, lịch thi và điểm số ICTU. Dự án mã nguồn mở dành cho sinh viên ICTU.">
+    <meta name="keywords" content="đăng nhập lịch học ictu, login lichhoc ictu, xem tkb ictu">
+    <meta name="robots" content="noindex,nofollow">
+    <link rel="canonical" href="https://ictu.quanhd.net/login.html">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://ictu.quanhd.net/login.html">
+    <meta property="og:title" content="Đăng nhập - Xem lịch học ICTU">
+    <meta property="og:description" content="Đăng nhập để xem lịch học ICTU. Tra cứu thời khóa biểu trực tuyến.">
+    <meta property="og:image" content="https://ictu.quanhd.net/assets/images/login-preview.jpg">
+    <meta property="og:site_name" content="ICTU Schedule">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="assets/images/favicon.png">
+
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        dark: {
+                            'bg-primary': '#111827',
+                            'bg-secondary': '#1F2937',
+                            'text-primary': '#F9FAFB',
+                            'text-secondary': '#D1D5DB'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
     <style>
-        /* Custom Scrollbar (if needed) */
-        ::-webkit-scrollbar {
-            width: 8px;
+        .input-focus-effect:focus {
+            box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2);
         }
 
-        ::-webkit-scrollbar-track {
-            background: #f1f1f1;
+        /* Custom dark mode toggle switch */
+        .theme-toggle {
+            width: 3rem;
+            height: 1.5rem;
+            background-color: #374151;
+            border-radius: 9999px;
+            position: relative;
+            cursor: pointer;
+            transition: background-color 0.3s;
         }
 
-        ::-webkit-scrollbar-thumb {
-            background: #888;
-            border-radius: 4px;
+        .theme-toggle::after {
+            content: '';
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 1.25rem;
+            height: 1.25rem;
+            background-color: white;
+            border-radius: 50%;
+            transition: transform 0.3s;
         }
 
-        ::-webkit-scrollbar-thumb:hover {
-            background: #555;
+        .dark .theme-toggle {
+            background-color: #60A5FA;
         }
 
-        /* Toggle Theme Styles */
-        .toggle-checkbox:checked + .toggle-label .toggle-dot {
-            transform: translateX(100%);
-        }
-
-        .toggle-checkbox:checked + .toggle-label {
-            background-color: #2563eb; /* Updated to match the blue color of buttons */
+        .dark .theme-toggle::after {
+            transform: translateX(1.5rem);
         }
     </style>
 </head>
-<body class="bg-gray-100 dark:bg-gray-900 flex items-center justify-center h-screen font-sans antialiased">
-    <div class="bg-white dark:bg-gray-800 p-8 rounded-lg shadow-md w-full max-w-sm">
-        <h2 class="text-2xl font-bold mb-6 text-center text-gray-800 dark:text-white">Đăng nhập (beta)</h2>
-        <p class="dark:text-red-300 text-center mb-4 text-red-500">Vui lòng nhập tên đăng nhập và mật khẩu của dangkytinchi để đăng nhập.</p>
-        <form id="loginForm">
-            <div class="mb-4">
-                <label for="username" class="block text-gray-700 dark:text-gray-300 mb-2 font-medium">Tên đăng nhập:</label>
-                <input type="text" id="username" name="username" class="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-600 dark:bg-gray-700 dark:border-gray-600 dark:text-white" required>
-            </div>
-            <div class="mb-6">
-                <label for="password" class="block text-gray-700 dark:text-gray-300 mb-2 font-medium">Mật khẩu:</label>
-                <input type="password" id="password" name="password" class="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-600 dark:bg-gray-700 dark:border-gray-600 dark:text-white" required>
-            </div>
-            <button type="submit" class="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-opacity-50" id="btn-login">Đăng nhập</button>
-        </form>
-        <div class="mt-4 flex justify-center">
-            <input type="checkbox" id="theme-toggle" class="hidden toggle-checkbox">
-            <label for="theme-toggle" class="flex items-center cursor-pointer toggle-label">
-                <div class="relative w-10 h-5 transition-all duration-200 ease-in-out bg-gray-400 rounded-full shadow-inner">
-                    <div class="absolute left-0.5 top-0.5 w-4 h-4 transition-all duration-200 ease-in-out transform translate-x-0 bg-white rounded-full shadow-md toggle-dot"></div>
-                </div>
-                <span class="ml-3 text-sm text-gray-700 dark:text-gray-300">Chuyển giao diện</span>
-            </label>
+
+<body class="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-gray-900 dark:to-gray-800 flex items-center justify-center p-4">
+    <!-- Back to Home Button -->
+    <a href="/" id="homeButton" class="fixed top-4 left-4 flex items-center px-4 py-2 text-gray-700 dark:text-gray-200 bg-white/90 dark:bg-gray-800/90 rounded-lg shadow-lg hover:scale-105 transition-transform duration-300 backdrop-blur-sm">
+        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+        </svg>
+        Trang chủ
+    </a>
+
+    <!-- Login Container -->
+    <div class="w-full max-w-md bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm p-8 rounded-2xl shadow-xl animate__animated animate__fadeIn">
+        <!-- Header -->
+        <div class="text-center mb-8">
+            <h1 class="text-2xl font-bold text-gray-800 dark:text-white mb-2">QTimeTable Web</h1>
+            <p class="text-gray-600 dark:text-gray-300">Đăng nhập để xem lịch học</p>
         </div>
-        <div id="error-message" class="text-red-500 mt-4 text-center hidden"></div>
+
+        <!-- Notice -->
+        <div class="mb-6 p-4 bg-blue-50 dark:bg-gray-700/50 rounded-lg">
+            <p class="text-sm text-blue-800 dark:text-blue-200 text-center">
+                Sử dụng tài khoản <span class="font-semibold">dangkytinchi.ictu.edu.vn</span> để đăng nhập
+            </p>
+        </div>
+
+        <!-- Login Form -->
+        <form id="loginForm" class="space-y-6">
+            <div>
+                <label for="username" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                    Tên đăng nhập
+                </label>
+                <input 
+                    type="text" 
+                    id="username" 
+                    name="username" 
+                    class="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 focus:border-transparent transition-all duration-300"
+                    required
+                >
+            </div>
+
+            <div>
+                <label for="password" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                    Mật khẩu
+                </label>
+                <input 
+                    type="password" 
+                    id="password" 
+                    name="password" 
+                    class="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 focus:border-transparent transition-all duration-300"
+                    required
+                >
+            </div>
+
+            <button 
+                type="submit" 
+                id="btn-login"
+                class="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800"
+            >
+                Đăng nhập
+            </button>
+        </form>
+
+        <!-- Error Message -->
+        <div id="error-message" class="mt-4 text-center hidden text-red-600 dark:text-red-400 text-sm"></div>
+
+        <!-- Theme Toggle -->
+        <div class="mt-6 flex justify-center items-center space-x-3">
+            <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
+                <span class="sr-only">Toggle theme</span>
+            </button>
+            <span class="text-sm text-gray-600 dark:text-gray-400">Chuyển giao diện</span>
+        </div>
     </div>
 
+    <!-- Footer -->
+    <footer class="fixed bottom-0 w-full py-4 px-6 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <p class="text-sm text-gray-600 dark:text-gray-400">QTimeTable Beta</p>
+            <a 
+                href="https://github.com/HDQuanDev/qtimetable-web" 
+                target="_blank" 
+                class="flex items-center text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+            >
+                <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                </svg>
+                GitHub Repository
+            </a>
+        </div>
+    </footer>
+
     <script src="assets/js/scripts.js"></script>
+    <script>
+        // Home button handler
+        document.getElementById('homeButton').addEventListener('click', (e) => {
+            e.preventDefault();
+            localStorage.removeItem('hasVisited');
+            window.location.href = '/';
+        });
+    </script>
 </body>
 </html>
