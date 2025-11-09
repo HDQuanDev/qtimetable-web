@@ -63,7 +63,7 @@ async function handleLogin(event) {
     document.getElementById('btn-login').textContent = 'Đang đăng nhập...';
     document.getElementById('btn-login').disabled = true;
     try {
-        const response = await fetch('https://search.quanhd.net/get_tkb', {
+        const response = await fetch('https://api-tkb.quanhd.net/get_tkb', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
